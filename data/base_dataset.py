@@ -123,13 +123,21 @@ def __make_power_2(img, base, method=Image.BICUBIC):
     return img.resize((w, h), method)
 
 
-def __scale_width(img, target_width, method=Image.BICUBIC):
+def __scale_width(img, new_size, method=Image.BICUBIC):
     ow, oh = img.size
-    if (ow == target_width):
+    if (ow == new_size):
         return img
-    w = target_width
-    h = int(target_width * oh / ow)
+    w = new_size
+    h = int(new_size * oh / ow)
     return img.resize((w, h), method)
+    #x, y = img.size
+    #ratio = new_size/max(x,y)
+    #new_x = x*ratio
+    #new_y = y*ratio
+    #new_im = Image.new('RGBA', (new_size, new_size), (0,0,0,0))
+    #resized_im = img.resize((int(new_x), int(new_y)),method)
+    #new_im.paste(resized_im, (int((new_size - new_x) / 2), int((new_size - new_y) / 2)))
+    #return new_im
 
 
 def __crop(img, pos, size):
